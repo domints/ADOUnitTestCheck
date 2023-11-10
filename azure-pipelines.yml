@@ -39,4 +39,4 @@ steps:
     projects: '**/ADO.Api.csproj'
     zipAfterPublish: false
     modifyOutputPath: false
-    arguments: '--no-build''
+    arguments: '--no-build'
