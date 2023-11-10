@@ -9,22 +9,34 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+#variables:
+#  solution: '**/*.sln'
+#  buildPlatform: 'Any CPU'
+#  buildConfiguration: 'Release'
+
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- task: UseDotNet@2
+  displayName: 'Install .Net Core SDK 7.x'
+  inputs:
+    version: 7.x
 
 - task: DotNetCoreCLI@2
+  displayName: 'build'
   inputs:
     command: 'build'
 
 - task: DotNetCoreCLI@2
+  displayName: 'test'
   inputs:
     command: 'test'
+    arguments: '--no-build'
 
 - task: DotNetCoreCLI@2
+  displayName: 'publish'
   inputs:
     command: 'publish'
     publishWebProjects: false
-    projects: '**/ADO.Api/ADO.Api.csproj'
+    projects: '**/ADO.Api.csproj'
     zipAfterPublish: false
     modifyOutputPath: false
+    arguments: '--no-build''
